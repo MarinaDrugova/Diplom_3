@@ -46,7 +46,7 @@ public class ConstructorTest {
         FormLocatorsPage formLocatorsPage = new FormLocatorsPage(driver);
         formLocatorsPage.clickSauceShowcaseButton();
         String actualResult = driver.findElement(formLocatorsPage.getResultSection()).getText();
-        assertEquals(expectedSaucesText, "Соусы");
+        assertEquals(expectedSaucesText, actualResult);
     }
     @Test
     @DisplayName("переход к разделу Начинки")

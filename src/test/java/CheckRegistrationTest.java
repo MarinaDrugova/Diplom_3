@@ -3,18 +3,17 @@ import io.restassured.response.ValidatableResponse;
 import org.example.FormLocatorsPage;
 import org.example.Login;
 import org.example.UserClient;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.util.Random;
-
 import static junit.framework.TestCase.assertEquals;
 
 public class CheckRegistrationTest {
     private WebDriver driver;
-    private String expectedTextEnter ="Вход";
+    private String  expectedTextEnter ="Вход";
     private String expectedWrongPassword = "Некорректный пароль";
     private String name = "Anna";
     Random random = new Random();
@@ -33,7 +32,6 @@ public class CheckRegistrationTest {
         formLocatorsPage.clickRegistrationButtonPageEnter();
         formLocatorsPage.writeNameFieldRegistration(name);
         formLocatorsPage.writeEmailFieldRegistration(email);
-
     }
     @Test
     @DisplayName("успешная регистрация")
@@ -56,11 +54,17 @@ public class CheckRegistrationTest {
     @DisplayName("ошибка при некорректном пароле")
     public void errorWrongPassword(){
         FormLocatorsPage formLocatorsPage = new FormLocatorsPage(driver);
-        formLocatorsPage.writePasswordEnter("Qwert112");
+        formLocatorsPage.writePasswordFieldRegistration("Fwe1224");
         formLocatorsPage.clickRegistrationButtonPageEnter();
-        formLocatorsPage.writeEmailEntre(email);
-        formLocatorsPage.writePasswordEnter(password);
-        String actualError = formLocatorsPage.getTextEnter();
-        assertEquals(expectedWrongPassword, "Некорректный пароль");
+        String actualErrorRegistration = formLocatorsPage.getTextRegistrationAPointButton();
+       assertEquals(expectedWrongPassword, actualErrorRegistration);
+    }
+    @After
+    public void teardown() {
+        UserClient userClient = new UserClient();
+        driver.quit();
+        if (accessToken != null) {
+            userClient.delete(accessToken);
+        }
     }
 }
