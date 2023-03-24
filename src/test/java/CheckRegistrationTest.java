@@ -54,7 +54,7 @@ public class CheckRegistrationTest {
     @DisplayName("ошибка при некорректном пароле")
     public void errorWrongPassword(){
         FormLocatorsPage formLocatorsPage = new FormLocatorsPage(driver);
-        formLocatorsPage.writePasswordFieldRegistration("Fwe1224");
+        formLocatorsPage.writePasswordFieldRegistration("F1224");
         formLocatorsPage.clickRegistrationButtonPageEnter();
         String actualErrorRegistration = formLocatorsPage.getTextRegistrationAPointButton();
        assertEquals(expectedWrongPassword, actualErrorRegistration);
